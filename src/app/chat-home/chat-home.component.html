@@ -1,1 +1,17 @@
-<p>chat-home works!</p>
+<div id="root">
+    <stream-channel-list style="width: 30%;"></stream-channel-list>
+    <stream-channel style="width: 100%;">
+      <stream-channel-header></stream-channel-header>
+      <stream-message-list></stream-message-list>
+      <stream-notification-list></stream-notification-list>
+      <stream-message-input></stream-message-input>
+      <stream-thread name="thread" style="width: 45%;">
+        <stream-message-list
+          mode="thread"
+        ></stream-message-list>
+        <stream-message-input
+          mode="thread"
+        ></stream-message-input>
+      </stream-thread>
+    </stream-channel>
+  </div>
