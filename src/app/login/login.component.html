@@ -1,0 +1,11 @@
+<div class="container">
+    
+    <form class="form-signin" [formGroup]="form" (ngSubmit)="loginSubmit(form.value)">
+        <h4 class="text-center bg-dark text-white mb-5">Login</h4>
+        <label>email</label><br>
+        <input type="email" required formControlName="email"><br>
+        <label>Password</label><br>
+        <input type="password" required formControlName="password"><br>
+        <button type="submit">Login</button>
+    </form>
+</div>
