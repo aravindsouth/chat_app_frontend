@@ -3,6 +3,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
+
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -29,6 +32,7 @@ export class LoginComponent implements OnInit {
         console.log(res);
         localStorage.setItem('token', res.token);
         if(res.status) {
+
         localStorage.setItem('user_email', value.email);
         this._router.navigate(['chat-home']);
         }

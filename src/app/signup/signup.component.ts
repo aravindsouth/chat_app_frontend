@@ -3,6 +3,14 @@ import { FormGroup, FormControl } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
+const cors = require('cors')({origin: true});
+const StreamChat = require('stream-chat').StreamChat;
+
+const serverStreamClient = StreamChat.getInstance(
+'x9kbujw7tyrj', { timeout: 6000,}
+);
+
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -43,6 +51,17 @@ export class SignupComponent implements OnInit {
         window.location.reload();
       }
       else {
+        
+        try {
+          serverStreamClient.upsertUser({
+            id: data.uid,
+            name: data.name,
+            email: data.email
+        })}
+        catch (error) {
+          console.log(error)
+        }
+
         console.log("new user added")
         this._router.navigate(["/login"])
       }
