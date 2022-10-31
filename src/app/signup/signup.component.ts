@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms'
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-
-const cors = require('cors')({origin: true});
-const StreamChat = require('stream-chat').StreamChat;
-
-const serverStreamClient = StreamChat.getInstance(
-'x9kbujw7tyrj', { timeout: 6000,}
-);
 
 
 @Component({
@@ -20,12 +13,12 @@ export class SignupComponent implements OnInit {
 
   constructor(private _router:Router, private _auth: AuthService) { }
 
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   ngOnInit(): void {
-    this.form = new FormGroup({
-      username: new FormControl(),
-      email: new FormControl('email'),
-      password: new FormControl
+    this.form = new UntypedFormGroup({
+      username: new UntypedFormControl(),
+      email: new UntypedFormControl('email'),
+      password: new UntypedFormControl
     });
   }
 
@@ -51,17 +44,6 @@ export class SignupComponent implements OnInit {
         window.location.reload();
       }
       else {
-        
-        try {
-          serverStreamClient.upsertUser({
-            id: data.uid,
-            name: data.name,
-            email: data.email
-        })}
-        catch (error) {
-          console.log(error)
-        }
-
         console.log("new user added")
         this._router.navigate(["/login"])
       }

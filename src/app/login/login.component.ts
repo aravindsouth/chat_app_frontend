@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -15,12 +15,12 @@ export class LoginComponent implements OnInit {
 
   
   constructor(private _auth: AuthService, private _router: Router) { }
-  form!: FormGroup;
+  form!: UntypedFormGroup;
 
   ngOnInit(): void {
-    this.form = new FormGroup({
-      email: new FormControl('email'),
-      password: new FormControl
+    this.form = new UntypedFormGroup({
+      email: new UntypedFormControl('email'),
+      password: new UntypedFormControl
     });
   }
 
@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
         if(res.status) {
 
         localStorage.setItem('user_email', value.email);
+        localStorage.setItem('user_id', res.uid);
         this._router.navigate(['chat-home']);
         }
         else {
