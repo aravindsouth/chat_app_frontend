@@ -26,4 +26,8 @@ export class AuthService {
     return this.http.post<any>(this.baseUri+"signup", user);
   }
 
+  createToken(id: any) {
+    return this.http.post<any>(this.baseUri+"gettoken", {user_id: id})
+  }
+
 }

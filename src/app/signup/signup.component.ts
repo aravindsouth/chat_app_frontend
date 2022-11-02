@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl } from '@angular/forms'
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -16,9 +16,9 @@ export class SignupComponent implements OnInit {
   form!: UntypedFormGroup;
   ngOnInit(): void {
     this.form = new UntypedFormGroup({
-      username: new UntypedFormControl(),
-      email: new UntypedFormControl('email'),
-      password: new UntypedFormControl
+      username: new UntypedFormControl('',Validators.minLength(4)),
+      email: new UntypedFormControl('email', Validators.email),
+      password: new UntypedFormControl('', Validators.minLength(4))
     });
   }
 

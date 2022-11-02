@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('token');
     localStorage.removeItem('user_email');
     localStorage.removeItem('user_id');
+    localStorage.removeItem('chat_token')
     this._router.navigate(['login'])
   }
 

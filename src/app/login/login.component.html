@@ -1,11 +1,14 @@
+
 <div class="container">
     
     <form class="form-signin" [formGroup]="form" (ngSubmit)="loginSubmit(form.value)">
         <h4 class="text-center bg-dark text-white mb-5">Login</h4>
-        <label>email</label><br>
+        <div style="display: flex;flex-direction: column;align-items: center;">
+        <label>email</label>
         <input type="email" required formControlName="email"><br>
-        <label>Password</label><br>
+        <label>Password</label>
         <input type="password" required formControlName="password"><br>
-        <button type="submit">Login</button>
+        <button type="submit" [disabled]="!form.valid">Login</button>
+    </div>
     </form>
 </div>
