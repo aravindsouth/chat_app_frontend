@@ -1,3 +1,13 @@
+<div>
+  <form style="padding: 10px;" [formGroup]="chat_form" (ngSubmit)="channelAdd(chat_form.value)">
+    <label>Channel Name</label>
+    <input class="input_box" name="channel" formControlName="channel_name">
+    <label>User Name</label>
+    <input class="input_box" name="channel" formControlName="contact_name">
+    <button class="input_box" type="submit">Add Channel/User</button>
+  </form>
+</div>
+
 <div id="root">
     <stream-channel-list style="width: 30%;"></stream-channel-list>
     <stream-channel style="width: 100%;">

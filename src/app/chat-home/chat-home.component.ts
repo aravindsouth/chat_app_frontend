@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { switchMap } from 'rxjs';
 import { ChatClientService, ChannelService, StreamI18nService } from 'stream-chat-angular';
 import { AuthService } from '../auth.service';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-chat-home',
@@ -29,7 +29,8 @@ export class ChatHomeComponent implements OnInit {
     this.streamI18nService.setTranslation();
     this.chatService.init(apiKey, this.id, localStorage.getItem('chat_token'));
   }
-
+  
+  chat_form!: UntypedFormGroup;
 
   ngOnInit(): void {
   // const channel = this.chatService.chatClient.channel('messaging', 'talking-about-angular', {
@@ -61,7 +62,34 @@ export class ChatHomeComponent implements OnInit {
     members: { $in: [localStorage.getItem('user_id')] },
   });
 
+  this.chat_form = new UntypedFormGroup({
+    channel_name: new UntypedFormControl('', Validators.minLength(4)),
+    contact_name: new UntypedFormControl('', Validators.minLength(4))
+  });
+
 }
-  
+  async channelAdd(value: any) {
+    console.log(value);
+    if(value.contact_name.length < 3) {
+    console.log("channel adding")
+    const channel = this.chatService.chatClient.channel('messaging', value.channel_name, {
+    name: value.channel_name,
+    members: [localStorage.getItem('user_id')!]
+  });
+  await channel.create();
+    }
+    else {
+      console.log("add contact to channel")
+      const filter = { type: 'messaging', id: { $in: [value.channel_name] } };
+      const channels = await this.chatService.chatClient.queryChannels(filter);
+      const response = await this.chatService.chatClient.queryUsers({ name: { $eq: value.contact_name } });
+      console.log("channels found", channels)
+      console.log("contact found", response)
+      channels.map((channel) => {
+        // console.log(channel.data.name, channel.cid)
+        channel.addMembers([response.users[0].id]);
+    })
+    }
+  }
 
 }
